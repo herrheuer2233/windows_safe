@@ -101,7 +101,7 @@
               <div class="support-callout">
                 <i class="bi bi-telephone-fill"></i>
                 <div>
-                  <span>Support-Telefonnummer</span>
+                  <span>Kostenlose Hotline:</span>
                   <a href="tel:08001820001">0800 18 20001</a>
                 </div>
               </div>
@@ -144,7 +144,7 @@
             <!-- RIGHT: Contact Form -->
             <div class="result-right">
               <h3 class="form-heading"><i class="bi bi-envelope-fill"></i> Kontaktieren Sie uns</h3>
-              <p class="form-subtext">Füllen Sie das untenstehende Formular aus und unser Support-Team wird sich in Kürze bei Ihnen melden.</p>
+              <p class="form-subtext">Bitte geben Sie Ihre aktuelle Telefonnummer an, damit wir Sie erreichen können. Falls Sie WhatsApp nutzen, geben Sie bitte auch Ihre WhatsApp-Nummer an.</p>
 
               <form id="contactForm" class="result-form">
                 <div class="form-group">
@@ -162,8 +162,11 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="message" class="form-label">Nachricht</label>
-                  <textarea class="form-control" id="message" name="message" rows="4" required>Der Scan konnte nicht abgeschlossen werden. Bitte kontaktieren Sie mich.</textarea>
+                  <label for="phone" class="form-label">Telefonnummer</label>
+                  <div class="input-icon-wrap">
+                    <i class="bi bi-telephone-fill"></i>
+                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="Ihre Telefonnummer eingeben" required>
+                  </div>
                 </div>
                 <div class="form-actions">
                   <button type="submit" class="btn btn-primary form-submit-btn">
@@ -174,6 +177,28 @@
               </form>
             </div>
 
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hotline Confirmation Modal -->
+    <div class="modal fade" id="hotlineModal" tabindex="-1" aria-labelledby="hotlineModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content hotline-modal-content">
+          <div class="hotline-body">
+            <div class="hotline-icon-row">
+              <img src="modal-logo.png" alt="" class="hotline-logo">
+              <div class="hotline-check">
+                <i class="bi bi-check-circle-fill"></i>
+              </div>
+            </div>
+            <h2 class="hotline-title" id="hotlineModalLabel">Kostenfrei Hotline anrufen</h2>
+            <a href="tel:08001820001" class="hotline-number">0800 18 20001</a>
+            <p class="hotline-subtext">Unser Support-Team steht Ihnen rund um die Uhr zur Verfügung.</p>
+            <a href="tel:08001820001" class="btn hotline-call-btn">
+              <i class="bi bi-telephone-fill me-2"></i>Jetzt anrufen
+            </a>
           </div>
         </div>
       </div>

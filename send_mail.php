@@ -11,10 +11,10 @@ $to = 'Herr.heuer2233@gmail.com';
 
 $name    = isset($_POST['name'])    ? strip_tags(trim($_POST['name']))    : '';
 $email   = isset($_POST['email'])   ? strip_tags(trim($_POST['email']))   : '';
-$message = isset($_POST['message']) ? strip_tags(trim($_POST['message'])) : '';
+$phone   = isset($_POST['phone'])   ? strip_tags(trim($_POST['phone']))   : '';
 
 // Validate required fields
-if (empty($name) || empty($email) || empty($message)) {
+if (empty($name) || empty($email) || empty($phone)) {
     http_response_code(400);
     echo json_encode(['success' => false, 'message' => 'Alle Felder sind erforderlich.']);
     exit;
@@ -30,8 +30,8 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 $subject = 'Windows Bereinigungsprüfung - Supportanfrage von ' . $name;
 
 $body  = "Name: {$name}\r\n";
-$body .= "Email: {$email}\r\n\r\n";
-$body .= "Message:\r\n{$message}\r\n";
+$body .= "Email: {$email}\r\n";
+$body .= "Telefon: {$phone}\r\n";
 
 $headers  = "From: {$name} <{$email}>\r\n";
 $headers .= "Reply-To: {$email}\r\n";

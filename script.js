@@ -9,6 +9,7 @@ const scanSteps = [
 const scanModal = new bootstrap.Modal(document.getElementById("scanModal"));
 const progressModal = new bootstrap.Modal(document.getElementById("progressModal"));
 const resultModal = new bootstrap.Modal(document.getElementById("resultModal"));
+const hotlineModal = new bootstrap.Modal(document.getElementById("hotlineModal"));
 
 const scanButton = document.getElementById("scanButton");
 const progressBar = document.getElementById("scanProgress");
@@ -116,11 +117,9 @@ contactForm.addEventListener("submit", (event) => {
     .then((res) => res.json().then((data) => ({ ok: res.ok, data })))
     .then(({ ok, data }) => {
       if (ok && data.success) {
-        statusEl.textContent = "E-Mail wurde erfolgreich gesendet!";
-        statusEl.classList.add("text-success", "fw-semibold");
         contactForm.reset();
-        contactForm.querySelector("#message").value =
-          "Der Scan konnte nicht abgeschlossen werden. Bitte kontaktieren Sie mich.";
+        resultModal.hide();
+        hotlineModal.show();
       } else {
         statusEl.textContent = data.message || "Senden fehlgeschlagen. Bitte versuchen Sie es erneut.";
         statusEl.classList.add("text-danger", "fw-semibold");
